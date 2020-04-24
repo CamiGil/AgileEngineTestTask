@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {UrlConstants} from './url-constants';
-import {Transaction} from './transaction';
+import {UrlConstants} from '../util/url-constants';
+import {Transaction} from '../model/transaction';
 
 @Injectable({
   providedIn: 'root'

@@ -1,10 +1,11 @@
 package com.agileengine.AgileEngineTestTask.repository;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-@Service
+@Repository
 public class AccountRepository {
 
     BigDecimal accountAmount;

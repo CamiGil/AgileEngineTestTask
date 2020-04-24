@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TransactionValidatorTest {
+class TransactionResponseValidatorTest {
 
     TransactionValidator transactionValidator = new TransactionValidator();
 

@@ -1,8 +1,6 @@
 package com.agileengine.AgileEngineTestTask.service;
 
-import com.agileengine.AgileEngineTestTask.model.Transaction;
-import com.agileengine.AgileEngineTestTask.model.dao.TransactionDAO;
-import com.agileengine.AgileEngineTestTask.exception.TransactionNotFoundException;
+import com.agileengine.AgileEngineTestTask.model.TransactionResponse;
 import com.agileengine.AgileEngineTestTask.exception.TransactionTypeInvalidException;
 import com.agileengine.AgileEngineTestTask.model.TransactionRQ;
 import com.agileengine.AgileEngineTestTask.model.TransactionType;
@@ -28,15 +26,15 @@ public class TransactionService {
         this.accountService = accountService;
     }
 
-    public List<Transaction> getAll() {
+    public List<TransactionResponse> getAll() {
         return transactionRepository.getAll();
     }
 
-    public Transaction getTransaction(String id) {
+    public TransactionResponse getTransaction(String id) {
         return transactionRepository.getTransaction(id);
     }
 
-    public Transaction addNewTransaction(TransactionRQ transactionRQ) {
+    public TransactionResponse addNewTransaction(TransactionRQ transactionRQ) {
 
         this.transactionValidator.validate(transactionRQ);
         this.accountService.updateAccountValue(transactionRQ);

@@ -1,30 +1,20 @@
 package com.agileengine.AgileEngineTestTask.model;
 
-import com.agileengine.AgileEngineTestTask.model.dao.TransactionDAO;
+import com.agileengine.AgileEngineTestTask.model.TransactionType;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class Transaction {
 
-    private String id;
     private TransactionType type;
     private BigDecimal amount;
     private LocalDateTime effectiveDate;
 
-    public Transaction(String id, TransactionDAO transactionDAO) {
-        this.id = id;
-        this.type = transactionDAO.getType();
-        this.amount = transactionDAO.getAmount();
-        this.effectiveDate = transactionDAO.getEffectiveDate();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public Transaction(TransactionType transactionType, BigDecimal amount) {
+        this.type = transactionType;
+        this.amount = amount;
+        this.effectiveDate = LocalDateTime.now();
     }
 
     public TransactionType getType() {
@@ -50,5 +40,4 @@ public class Transaction {
     public void setEffectiveDate(LocalDateTime effectiveDate) {
         this.effectiveDate = effectiveDate;
     }
-
 }

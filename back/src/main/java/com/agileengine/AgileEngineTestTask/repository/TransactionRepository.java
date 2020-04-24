@@ -1,26 +1,26 @@
 package com.agileengine.AgileEngineTestTask.repository;
 
 import com.agileengine.AgileEngineTestTask.exception.TransactionNotFoundException;
-import com.agileengine.AgileEngineTestTask.model.Transaction;
+import com.agileengine.AgileEngineTestTask.model.TransactionResponse;
 import com.agileengine.AgileEngineTestTask.model.TransactionType;
-import com.agileengine.AgileEngineTestTask.model.dao.TransactionDAO;
-import org.springframework.stereotype.Service;
+import com.agileengine.AgileEngineTestTask.model.Transaction;
+import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-@Service
+@Repository
 public class TransactionRepository {
 
-    private ConcurrentHashMap<String, TransactionDAO> transactions;
+    private ConcurrentHashMap<String, Transaction> transactions;
 
     public TransactionRepository() {
         this.transactions = new ConcurrentHashMap<>();
     }
 
-    public List<Transaction> getAll() {
+    public List<TransactionResponse> getAll() {
         
         return transactions
                 .entrySet()
@@ -29,24 +29,24 @@ public class TransactionRepository {
                 .collect(Collectors.toList());
     }
 
-    public Transaction getTransaction(String id) {
+    public TransactionResponse getTransaction(String id) {
 
-        TransactionDAO transactionDAO = transactions.get(id);
-        if(transactionDAO == null) {
+        Transaction transaction = transactions.get(id);
+        if(transaction == null) {
             throw new TransactionNotFoundException(id);
         }
-        return transformDAOToTransaction(id, transactionDAO);
+        return transformDAOToTransaction(id, transaction);
     }
 
-    public Transaction addNewTransactionAndGetIt(TransactionType transactionType, BigDecimal amount) {
-        TransactionDAO transactionDAO = new TransactionDAO(transactionType, amount);
+    public TransactionResponse addNewTransactionAndGetIt(TransactionType transactionType, BigDecimal amount) {
+        Transaction transaction = new Transaction(transactionType, amount);
         String id = UUID.randomUUID().toString();
-        transactions.put(id, transactionDAO);
+        transactions.put(id, transaction);
 
-        return transformDAOToTransaction(id, transactionDAO);
+        return transformDAOToTransaction(id, transaction);
     }
 
-    private Transaction transformDAOToTransaction(String id, TransactionDAO transactionDAO) {
-        return new Transaction(id, transactionDAO);
+    private TransactionResponse transformDAOToTransaction(String id, Transaction transaction) {
+        return new TransactionResponse(id, transaction);
     }
 }

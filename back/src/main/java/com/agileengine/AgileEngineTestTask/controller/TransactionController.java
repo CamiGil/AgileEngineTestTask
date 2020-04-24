@@ -1,6 +1,6 @@
 package com.agileengine.AgileEngineTestTask.controller;
 
-import com.agileengine.AgileEngineTestTask.model.Transaction;
+import com.agileengine.AgileEngineTestTask.model.TransactionResponse;
 import com.agileengine.AgileEngineTestTask.model.TransactionRQ;
 import com.agileengine.AgileEngineTestTask.service.TransactionService;
 import org.slf4j.Logger;
@@ -26,30 +26,30 @@ public class TransactionController {
 
     @RequestMapping(value = "/transactions", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<List<Transaction>> getAllTransactions() {
+    public ResponseEntity<List<TransactionResponse>> getAllTransactions() {
 
         LOGGER.info("GetAllTransactions request received");
-        List<Transaction> response = transactionService.getAll();
+        List<TransactionResponse> response = transactionService.getAll();
         LOGGER.info("GetAllTransactions response finished");
         return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "/transactions", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Transaction> addTransaction(@RequestBody TransactionRQ transactionRQ) {
+    public ResponseEntity<TransactionResponse> addTransaction(@RequestBody TransactionRQ transactionRQ) {
 
         LOGGER.info("addTransaction request received");
-        Transaction response = transactionService.addNewTransaction(transactionRQ);
+        TransactionResponse response = transactionService.addNewTransaction(transactionRQ);
         LOGGER.info("addTransaction response finished with id: " + response.getId());
         return ResponseEntity.ok(response);
     }
 
     @RequestMapping(value = "/transactions/{id}", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Transaction> getTransaction(@PathVariable String id) {
+    public ResponseEntity<TransactionResponse> getTransaction(@PathVariable String id) {
 
         LOGGER.info("getTransaction request  with id: " + id);
-        Transaction response = transactionService.getTransaction(id);
+        TransactionResponse response = transactionService.getTransaction(id);
         LOGGER.info("getTransaction response finished");
         return ResponseEntity.ok(response);
     }
